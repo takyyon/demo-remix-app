@@ -1,0 +1,99 @@
+2023/07/20 04:01:21 Downloading source code...
+2023/07/20 04:01:27 Finished downloading source code
+2023/07/20 04:01:28 Using acb_vol_acaae111-75fd-473a-ab25-20a2bf5f2c45 as the home volume
+2023/07/20 04:01:28 Setting up Docker configuration...
+2023/07/20 04:01:29 Successfully set up Docker configuration
+2023/07/20 04:01:29 Logging in to registry: ca84c2e6014facr.azurecr.io
+2023/07/20 04:01:29 Successfully logged into ca84c2e6014facr.azurecr.io
+2023/07/20 04:01:29 Executing step ID: build. Timeout(sec): 28800, Working directory: '', Network: ''
+2023/07/20 04:01:29 Scanning for dependencies...
+2023/07/20 04:01:30 Successfully scanned dependencies
+2023/07/20 04:01:30 Launching container with name: build
+Sending build context to Docker daemon  1.361MB
+Step 1/27 : FROM node:16-bullseye-slim as base
+16-bullseye-slim: Pulling from library/node
+9d21b12d5fab: Pulling fs layer
+ce632e02ef79: Pulling fs layer
+6e0dc02c0da2: Pulling fs layer
+2f0c727c5607: Pulling fs layer
+ec036121e6fa: Pulling fs layer
+2f0c727c5607: Waiting
+ec036121e6fa: Waiting
+ce632e02ef79: Download complete
+9d21b12d5fab: Verifying Checksum
+9d21b12d5fab: Download complete
+2f0c727c5607: Verifying Checksum
+2f0c727c5607: Download complete
+6e0dc02c0da2: Verifying Checksum
+6e0dc02c0da2: Download complete
+ec036121e6fa: Verifying Checksum
+ec036121e6fa: Download complete
+9d21b12d5fab: Pull complete
+ce632e02ef79: Pull complete
+6e0dc02c0da2: Pull complete
+2f0c727c5607: Pull complete
+ec036121e6fa: Pull complete
+Digest: sha256:e8b9a589fbeb75b8a2c8e15ef664fbd75b146e3fc6bc7151f235113a8c07bdf4
+Status: Downloaded newer image for node:16-bullseye-slim
+ ---> 6b02cfd592ca
+Step 2/27 : ENV NODE_ENV production
+ ---> Running in 11a35f06c459
+Removing intermediate container 11a35f06c459
+ ---> 073b1dc4c0b7
+Step 3/27 : RUN apt-get update && apt-get install -y openssl
+ ---> Running in ae3d056da04f
+Get:1 http://deb.debian.org/debian bullseye InRelease [116 kB]
+Get:2 http://deb.debian.org/debian-security bullseye-security InRelease [48.4 kB]
+Get:3 http://deb.debian.org/debian bullseye-updates InRelease [44.1 kB]
+Get:4 http://deb.debian.org/debian bullseye/main amd64 Packages [8183 kB]
+Get:5 http://deb.debian.org/debian-security bullseye-security/main amd64 Packages [252 kB]
+Get:6 http://deb.debian.org/debian bullseye-updates/main amd64 Packages [14.8 kB]
+Fetched 8658 kB in 1s (6847 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Suggested packages:
+  ca-certificates
+The following NEW packages will be installed:
+  openssl
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 854 kB of archives.
+After this operation, 1501 kB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian-security bullseye-security/main amd64 openssl amd64 1.1.1n-0+deb11u5 [854 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 854 kB in 0s (14.0 MB/s)
+Selecting previously unselected package openssl.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6664 files and directories currently installed.)
+Preparing to unpack .../openssl_1.1.1n-0+deb11u5_amd64.deb ...
+Unpacking openssl (1.1.1n-0+deb11u5) ...
+Setting up openssl (1.1.1n-0+deb11u5) ...
+Removing intermediate container ae3d056da04f
+ ---> ad052360a95a
+Step 4/27 : FROM base as deps
+ ---> ad052360a95a
+Step 5/27 : WORKDIR /myapp
+ ---> Running in 0e80d6703d35
+Removing intermediate container 0e80d6703d35
+ ---> 12055e04f218
+Step 6/27 : ADD package.json package-lock.json .npmrc ./
+ ---> be67cb11464b
+Step 7/27 : RUN npm install --include=dev
+ ---> Running in b31e1201272e
+npm notice 
+npm notice New major version of npm available! 8.19.4 -> 9.8.1
+npm notice Changelog: <https://github.com/npm/cli/releases/tag/v9.8.1>
+npm notice Run `npm install -g npm@9.8.1` to update!
+npm notice 
+npm ERR! code E401
+npm ERR! Unable to authenticate, your authentication token seems to be invalid.
+npm ERR! To correct this please trying logging in again with:
+npm ERR!     npm login
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2023-07-20T04_01_43_575Z-debug-0.log
+The command '/bin/sh -c npm install --include=dev' returned a non-zero code: 1
+2023/07/20 04:01:55 Container failed during run: build. No retries remaining.
+failed to run step ID: build: exit status 1
+
+Run ID: cd1 failed after 35s. Error: failed during run, err: exit status 1
